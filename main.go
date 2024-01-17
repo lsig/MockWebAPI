@@ -1,11 +1,11 @@
 package main
 
 import (
-	"log"
-
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"github.com/lsig/OtpWebAPI/database"
+	"github.com/lsig/OtpWebAPI/handler"
+	"log"
 )
 
 func main() {
@@ -25,5 +25,8 @@ func main() {
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 
-	e.Logger.Fatal(e.Start(":5000"))
+	e.GET("/users/:id/otp", handler.GetOTP)
+	e.POST("/users", handler.CreateUser)
+
+	e.Logger.Fatal(e.Start(":5050"))
 }
